@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import MenuItem from './MenuItem'
 // read: https://fontawesome.com/how-to-use/on-the-web/using-with/react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Actions = (props) => {
-    const [showPriceItem, setPriceItem] = useState(false)
-    const [showDietaryItem, setDietarytem] = useState(false)
-    const [showSortSelector, setSortSelector] = useState(false);
-
     const { setActivePriceLevel, activePriceLevel } = props
 
     const handeGeneralSorting = (restaurants, sortBy) => {
@@ -19,7 +16,6 @@ const Actions = (props) => {
         })
         setRestaurants(sortedRestaurants)
     }
-
     
     /**
      * It is to toggle price button active/inactive state
@@ -35,15 +31,14 @@ const Actions = (props) => {
         }
         const newPriceLevel = [...activePriceLevel, dataAttribut]
         setActivePriceLevel(newPriceLevel)
-
     }
-
 
     return (
         <div className="actions">
-            <span className="button-group">
-                <button onClick={() => setSortSelector(!showSortSelector)}><span>Sort</span> <FontAwesomeIcon icon={"chevron-down"} /></button>
-                {showSortSelector && <div>
+            <MenuItem
+                title="sort"
+            >
+                <div>
                     <label>Most popular <input
                         value="popularity"
                         type="radio"
@@ -63,13 +58,14 @@ const Actions = (props) => {
                         name="generalSort"
                         onChange={event => handeGeneralSorting(props.restaurants, event.currentTarget.value)}
                     /></label>
-                </div>}
-            </span>
+                </div>
+            </MenuItem>
             {/* TODO */}
             {/* <!-- Implement as assignment for Thursday --> */}
-            <span className="button-group">
-                <button onClick={() => setPriceItem(!showPriceItem)}><span>Price Range</span> <FontAwesomeIcon icon={"chevron-down"} /></button>
-                {showPriceItem && <div className="button-group wide-container">
+            <MenuItem
+                title="Price Range"
+            >
+                <div className="button-group wide-container">
                     {
                         [1, 2, 3, 4].map((item) => {
                             return (
@@ -77,11 +73,13 @@ const Actions = (props) => {
                             )
                         })
                     }
-                </div>}
-            </span>
-            <span className="button-group">
-                <button onClick={() => setDietarytem(!showDietaryItem)}><span>Dietary choice</span> <FontAwesomeIcon icon={"chevron-down"} /></button>
-                {showDietaryItem && <div>
+                </div>
+            </MenuItem>
+            
+            <MenuItem 
+                title="Dietary choice"
+            >
+                <div>
                     <label>Vegetarian <input
                         value="popularity"
                         type="checkbox"
@@ -101,8 +99,9 @@ const Actions = (props) => {
                         name="generalSort"
                         onChange={event => handeGeneralSorting(props.restaurants, event.currentTarget.value)}
                     /></label>
-                </div>}
-            </span>
+                </div>
+                
+            </MenuItem>
         </div>
     )
 
