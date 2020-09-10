@@ -91,6 +91,15 @@ nav a {
   align-items: center;
   cursor: pointer;
   margin-bottom: 0.35rem;
+  position: relative;
+  padding-left: 22px;
+}
+
+.actions .button-group div > label .icon{
+  position: absolute;
+    left: -5px;
+    top: 0;
+    width: 13px;
 }
 
 
@@ -137,13 +146,16 @@ nav a {
   margin: 0 auto;
   padding: 2em;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-flow: row;
+  align-items: center;
 }
 
 .restaurants section {
   border-bottom: 1px solid #ccc;
   max-height: 335px;
   height: 100%;
+  margin-right: 50px;
 }
 .restaurants section .description {
   font-size: 0.85em;

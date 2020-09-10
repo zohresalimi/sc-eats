@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import MenuItem from './MenuItem'
 // read: https://fontawesome.com/how-to-use/on-the-web/using-with/react
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLeaf,faSeedling,faDrumstickBite } from '@fortawesome/free-solid-svg-icons'
+
 
 const Actions = (props) => {
-    const { setActivePriceLevel, activePriceLevel } = props
+    const { activePriceLevel ,setActivePriceLevel } = props
+    const { selectedCategory ,setSelectedCategory } = props
 
     const handeGeneralSorting = (restaurants, sortBy) => {
         const { setRestaurants } = props;   
@@ -33,11 +36,24 @@ const Actions = (props) => {
         setActivePriceLevel(newPriceLevel)
     }
 
+    // filter by food category
+    const filterByCategory = (event) =>{
+        const category = event.target.value
+        console.log(event.target.checked)
+        console.log(category)
+        if (selectedCategory.includes(category)) {
+            setSelectedCategory(selectedCategory.filter(item => item !==category))
+            return
+        } 
+        const categoryList = [...selectedCategory, category]
+        setSelectedCategory(categoryList)
+        console.log(categoryList)
+    }
+
+
     return (
         <div className="actions">
-            <MenuItem
-                title="sort"
-            >
+            <MenuItem title="sort">
                 <div>
                     <label>Most popular <input
                         value="popularity"
@@ -62,9 +78,7 @@ const Actions = (props) => {
             </MenuItem>
             {/* TODO */}
             {/* <!-- Implement as assignment for Thursday --> */}
-            <MenuItem
-                title="Price Range"
-            >
+            <MenuItem title="Price Range">
                 <div className="button-group wide-container">
                     {
                         [1, 2, 3, 4].map((item) => {
@@ -76,29 +90,35 @@ const Actions = (props) => {
                 </div>
             </MenuItem>
             
-            <MenuItem 
-                title="Dietary choice"
-            >
+            <MenuItem title="Dietary choice">
                 <div>
-                    <label>Vegetarian <input
-                        value="popularity"
-                        type="checkbox"
-                        name="generalSort"
-                        onChange={event => handeGeneralSorting(props.restaurants, event.currentTarget.value)}
-                    />
+                    <label>Vegetarian
+                        <FontAwesomeIcon className="icon" icon={faLeaf}/>
+                        <input
+                            value="vegetarian"
+                            type="checkbox"
+                            name="Vegetarian"
+                            onChange={event => filterByCategory(event)}
+                        />
                     </label>
-                    <label>Vegan <input
-                        value="rating"
-                        type="checkbox"
-                        name="generalSort"
-                        onChange={event => handeGeneralSorting(props.restaurants, event.currentTarget.value)}
-                    /></label>
-                    <label>None-vegan <input
-                        value="maxDeliveryTime"
-                        type="checkbox"
-                        name="generalSort"
-                        onChange={event => handeGeneralSorting(props.restaurants, event.currentTarget.value)}
-                    /></label>
+                    <label>Vegan 
+                        <FontAwesomeIcon className="icon" icon={faSeedling} />
+                        <input
+                            value="vegan"
+                            type="checkbox"
+                            name="Vegan"
+                            onChange={event => filterByCategory(event)}
+                        />
+                    </label>
+                    <label>None-vegan
+                        <FontAwesomeIcon className="icon" icon={faDrumstickBite} />
+                        <input
+                            value="non vegan"
+                            type="checkbox"
+                            name="None-vegan"
+                            onChange={event => filterByCategory(event)}
+                        />
+                    </label>
                 </div>
                 
             </MenuItem>
