@@ -83,6 +83,7 @@ nav a {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  z-index: 9;
 }
 
 .actions .button-group div > label {
@@ -156,6 +157,7 @@ nav a {
   max-height: 335px;
   height: 100%;
   margin-right: 50px;
+  position: relative;
 }
 .restaurants section .description {
   font-size: 0.85em;
@@ -168,4 +170,18 @@ nav a {
 
 .shadow {
   box-shadow: 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+
+.info{
+  background-color: #29cf7f;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.info p{
+  color: #fff;
+  font-size:15px
 }

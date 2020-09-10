@@ -55,6 +55,13 @@ function App() {
     }
   }
 
+  const getMenuDiatryList = (restaurant) => { 
+    const { menu } = restaurant
+    const menuItems = [].concat(...menu.map(category => category.items))
+    
+    const categories = menuItems.map(item => item.typeOfMeal)
+    return Array.from(new Set(categories))
+  }
 
   const filterByCategory = (restaurant) => {
     if(!selectedCategory.length) return restaurant
@@ -100,12 +107,19 @@ function App() {
       </header>
       <div className='restaurants'>
         {filteredRestaurant.length ? filteredRestaurant.map(restaurant => {
-          return <section
-            key={restaurant.id}>
-            <img src={restaurant.img} alt="" />
-            <h2>{restaurant.name}</h2>
-            <p className="description">{restaurant.description}</p>
-          </section>
+          return(
+            <section key={restaurant.id}>
+              <div className='info'>
+                <p>{getMenuDiatryList(restaurant).join(' or ')}</p>
+                <p>Rating: {restaurant.rating}</p>
+                <p>{restaurant.popularity}</p>
+                <p>Time: {restaurant.maxDeliveryTime} min</p>
+              </div>
+              <img src={restaurant.img} alt="" />
+              <h2>{restaurant.name}</h2>
+              <p className="description">{restaurant.description}</p>
+            </section>
+          )
         }) : 'Could not find restaurants in this price level'}
       </div>
     </div>
